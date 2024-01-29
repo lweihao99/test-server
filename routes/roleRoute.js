@@ -3,6 +3,7 @@ const Role = require("../models/roleModel");
 
 const router = express.Router();
 
+// get All account data
 router.get("/", async (req, res) => {
   try {
     const roles = await Role.find();
@@ -18,6 +19,7 @@ router.get("/", async (req, res) => {
   }
 });
 
+// add new account with random roleId
 router.post("/", async (req, res) => {
   try {
     const randomId = Math.floor(Math.random() * 10000).toString();
@@ -36,6 +38,7 @@ router.post("/", async (req, res) => {
   }
 });
 
+// delete account by id
 router.delete("/:id", async (req, res) => {
   try {
     const id = req.params.id;

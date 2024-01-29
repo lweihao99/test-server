@@ -3,6 +3,7 @@ const User = require("../models/userModel");
 
 const router = express.Router();
 
+// create user
 const createUser = async (req, res) => {
   try {
     const newUser = await User.create(req.body);
@@ -21,6 +22,7 @@ const createUser = async (req, res) => {
   }
 };
 
+// get user by query
 const getUser = async (req, res) => {
   try {
     const { username, password } = req.query; // 获取查询数据
@@ -45,6 +47,7 @@ const getUser = async (req, res) => {
   }
 };
 
+// get all users
 const getAllUsers = async (req, res) => {
   try {
     const users = await User.find();

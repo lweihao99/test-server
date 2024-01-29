@@ -20,14 +20,6 @@ userSchema.methods.matchPassword = async function (enteredPassword) {
   return false;
 };
 
-userSchema.methods.matchPassword = async function (enteredPassword) {
-  if (this.password === enteredPassword) {
-    return true;
-  } else {
-    return false;
-  }
-};
-
 const User = mongoose.model("User", userSchema);
 
 module.exports = User;
