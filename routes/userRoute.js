@@ -6,7 +6,9 @@ const router = express.Router();
 // create user
 const createUser = async (req, res) => {
   try {
-    const newUser = await User.create(req.body);
+    const newUser = await User.create(...req.body);
+
+    if (!newUser) throw Error("No user found.");
 
     res.status(201).json({
       status: "success",

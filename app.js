@@ -5,6 +5,7 @@ const cors = require("cors");
 const userRoute = require("./routes/userRoute");
 const loginRoute = require("./routes/loginRoute");
 const roleRoute = require("./routes/roleRoute");
+const registerRoute = require("./routes/registerRoute");
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use((req, res, next) => {
 app.use("/api/user", userRoute);
 app.use("/api/login", loginRoute);
 app.use("/api/role", roleRoute);
+app.use("/api/register", registerRoute);
 
 app.use("*", (req, res) => {
   res.status(404).json({

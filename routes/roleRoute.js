@@ -43,13 +43,38 @@ router.delete("/:id", async (req, res) => {
   try {
     const id = req.params.id;
     const del = await Role.findByIdAndDelete(id);
-    res.status(200).json({
+    res.status(204).json({
       status: true,
       message: "Data deleted.",
-      data: del,
+      data: null,
     });
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(404).json({ message: error.message });
+  }
+});
+
+// update new account role data
+router.patch("/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const data = req.body;
+
+    const newData = await Role.findByIdAndUpdate(id, data, {
+      new: true, // 确认新的数据返回
+      runValidators: true,
+    });
+
+    if (!newData) throw Error("No data found with id.");
+
+    res.status(200).json({
+      status: true,
+      data: newData,
+    });
+  } catch (error) {
+    req.status(404).json({
+      status: false,
+      message: error.message,
+    });
   }
 });
 

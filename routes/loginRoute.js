@@ -13,6 +13,12 @@ const signToken = (id) => {
   });
 };
 
+const comparePassoword = async (userPassword, enteredPassword) => {
+  // 对比密码
+  if (userPassword === enteredPassword) return true;
+  else return false;
+};
+
 const login = async (req, res) => {
   try {
     // 登录逻辑
@@ -21,22 +27,21 @@ const login = async (req, res) => {
     if (!username || !password) throw new Error("用户名或密码不能为空");
 
     const user = await User.findOne({ username });
+    console.log(user);
 
-    if (!user) throw new Error("用户不存在");
+    const correct = await comparePassoword(user.password, password);
+
+    if (!correct && !user) throw Error("username or password incorrect");
 
     const token = signToken(user._id);
 
-    const correct = await user.matchPassword(password);
-
-    if (!correct) throw Error("密码错误");
-
     res.status(200).json({
-      status: "success",
+      status: true,
       token,
     });
   } catch (error) {
     res.status(400).json({
-      status: "fail",
+      status: false,
       message: error.message,
     });
   }
